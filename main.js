@@ -17,24 +17,24 @@ async function mostrarProductos() {
         const respuesta = await fetch("data/ropa.json");
         const ropa = await respuesta.json();
 
-    ropa.forEach((producto) => {
-        const crearCard = document.createElement("section");
-        crearCard.classList.add("card");
-        crearCard.innerHTML = `
-            <img class="img" src="${producto.img}" alt="${producto.nombre}">
-            <h2>${producto.nombre}</h2>
-            <p>$${producto.precio}</p>
-            <button class="boton-agregar">Agregar al carrito</button>
-    `;
+        ropa.forEach((producto) => {
+            const crearCard = document.createElement("section");
+            crearCard.classList.add("card");
+            crearCard.innerHTML = `
+                <img class="img" src="${producto.img}" alt="${producto.nombre}">
+                <h2>${producto.nombre}</h2>
+                <p>$${producto.precio}</p>
+                <button class="boton-agregar">Agregar al carrito</button>
+            `;
 
-    crearCard.querySelector(".boton-agregar").addEventListener("click", () => {
-        carrito.push(producto);
-        guardarCarrito();
-        mostrarCarrito();
-    });
+            crearCard.querySelector(".boton-agregar").addEventListener("click", () => {
+                carrito.push(producto);
+                guardarCarrito();
+                mostrarCarrito();
+            });
 
-        contenedor.appendChild(crearCard);
-    });
+            contenedor.appendChild(crearCard);
+        });
     } catch (error) {
         console.error("Error cargando los productos:", error);
     }
@@ -55,18 +55,18 @@ function mostrarCarrito() {
         const item = document.createElement("div");
         item.classList.add("item-carrito");
         item.innerHTML = `
-        <img src="${producto.img}" alt="${producto.nombre}">
-        <span>${producto.nombre}</span>
-        <span>$${producto.precio}</span>
-        <button class="boton-eliminar">❌</button>
-    `;
+            <img src="${producto.img}" alt="${producto.nombre}">
+            <span>${producto.nombre}</span>
+            <span>$${producto.precio}</span>
+            <button class="boton-eliminar">❌</button>
+        `;
 
-    // Eliminar producto individual
-    item.querySelector(".boton-eliminar").addEventListener("click", () => {
-        carrito.splice(index, 1);
-        guardarCarrito();
-        mostrarCarrito();
-    });
+        // Eliminar producto individual
+        item.querySelector(".boton-eliminar").addEventListener("click", () => {
+            carrito.splice(index, 1);
+            guardarCarrito();
+            mostrarCarrito();
+        });
 
         carritoLista.appendChild(item);
         total += producto.precio;
@@ -76,6 +76,7 @@ function mostrarCarrito() {
     totalElemento.textContent = `Total: $${total}`;
     carritoLista.appendChild(totalElemento);
 
+    // Botón Vaciar carrito
     const botonVaciar = document.createElement("button");
     botonVaciar.classList.add("boton-vaciar");
     botonVaciar.textContent = "Vaciar carrito";
@@ -85,10 +86,37 @@ function mostrarCarrito() {
         mostrarCarrito();
     });
     carritoLista.appendChild(botonVaciar);
+
+    // Botón Confirmar compra
+    const botonConfirmar = document.createElement("button");
+    botonConfirmar.classList.add("boton-confirmar");
+    botonConfirmar.textContent = "Confirmar compra";
+    botonConfirmar.addEventListener("click", () => {
+        if (carrito.length === 0) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Carrito vacío',
+                text: 'No hay productos en el carrito para comprar.',
+            });
+            return;
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Muchas gracias por tu compra!',
+            text: 'Tu pedido ha sido procesado correctamente.',
+            confirmButtonText: 'Aceptar'
+        });
+
+        carrito = [];
+        guardarCarrito();
+        mostrarCarrito();
+    });
+    carritoLista.appendChild(botonConfirmar);
 }
 
 // Eventos
-    botonCarrito.addEventListener("click", () => {
+botonCarrito.addEventListener("click", () => {
     carritoOculto.classList.add("visible");
     mostrarCarrito();
 });

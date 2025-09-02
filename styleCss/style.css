@@ -104,3 +104,20 @@ h1 {
     height: 100px;
     object-position: center;
 } 
+.boton-vaciar {
+    background-color: #918e8e;
+    border: 3px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.boton-confirmar {
+    background-color: #4CAF50;
+    border: 3px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
