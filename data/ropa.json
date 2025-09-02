@@ -1,0 +1,7 @@
+[
+    { "id": 1, "nombre": "Oversized T-Shirt", "precio": 25000, "img": "img/remera.png" },
+    { "id": 2, "nombre": "Essentials Joggers", "precio": 40000, "img": "img/pantalon.png" },
+    { "id": 3, "nombre": "Hoodie Basic", "precio": 30000, "img": "img/buzo.png" },
+    { "id": 4, "nombre": "Tank Top", "precio": 16000, "img": "img/musculosa.png" },
+    { "id": 5, "nombre": "Shorts Basic", "precio": 20000, "img": "img/short.png" }
+]
